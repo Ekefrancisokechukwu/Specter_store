@@ -1,6 +1,5 @@
 import Container from "@/components/ui/Container";
 import { customFetch, formatPrice } from "@/lib/utils";
-import { ChevronRight } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
@@ -13,10 +12,6 @@ type Params = {
 export async function generateMetadata({
   params: { productId },
 }: Params): Promise<Metadata> {
-  // const product: Promise<Product> = await customFetch(
-  //   `https://.../${productId}`
-  // );
-
   return {
     title: "...",
   };
@@ -35,7 +30,6 @@ const page = async ({ params: { productId } }: Params) => {
         <div className="flex h-5 items-center space-x-4 text-sm">
           <Link href={"/"}>Home</Link>
           <Separator orientation="vertical" />
-
           <div>{title}</div>
         </div>
 

@@ -79,12 +79,15 @@ const Header = () => {
               size="icon"
               className="mr-2 relative"
               aria-label="Shopping Cart"
+              asChild
             >
-              <ShoppingCart className="h-6 w-6" />
-              <span className="bg-primary left-1/2 -translate-x-[40%] top-0  grid place-items-center text-xs absolute text-primary-foreground w-4 h-4 rounded-full">
-                {amount || 0}
-              </span>
-              <span className="sr-only">Shopping Cart</span>
+              <Link href={"/cart"}>
+                <ShoppingCart className="h-6 w-6" />
+                <span className="bg-primary left-1/2 -translate-x-[40%] top-0  grid place-items-center text-xs absolute text-primary-foreground w-4 h-4 rounded-full">
+                  {amount || 0}
+                </span>
+                <span className="sr-only">Shopping Cart</span>
+              </Link>
             </Button>
 
             <Button

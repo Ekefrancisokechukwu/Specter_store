@@ -7,7 +7,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { generatedAmount } from "@/lib";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/redux/store";
 import { addItem, removeItem } from "@/redux/features/cart/cartSlice";
 import { useToast } from "@/components/ui/use-toast";
@@ -57,6 +57,10 @@ const PopModal = ({ params: { productId } }: Params) => {
     });
   };
 
+  const handleQuantity = (e: ChangeEvent<HTMLSelectElement>) => {
+    setQuantity(parseInt(e.target.value));
+  };
+
   const removeFromCart = () => {
     dispatch(removeItem(cartProduct.cartID));
   };
@@ -96,7 +100,11 @@ const PopModal = ({ params: { productId } }: Params) => {
                 </p>
 
                 <div className="mt-6">
-                  <select name="" className="w-36 border p-1">
+                  <select
+                    value={quantity}
+                    onChange={handleQuantity}
+                    className="w-36 border p-1"
+                  >
                     {generatedAmount()}
                   </select>
                 </div>
