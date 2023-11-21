@@ -12,8 +12,6 @@ const PaginationCOntainer = ({ paginate, handlePage }: Props) => {
     return index + 1;
   });
 
-  console.log(pages);
-
   return (
     <div className="mt-9 flex items-center justify-center gap-x-2">
       {pages.map((pageNumber) => {

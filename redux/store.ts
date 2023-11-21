@@ -9,7 +9,6 @@ export const store = configureStore({
     cartState: cartReducer,
   },
 });
-
 export const useAppDispatch: () => typeof store.dispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<
   ReturnType<typeof store.getState>

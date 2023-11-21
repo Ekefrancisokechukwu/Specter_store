@@ -7,7 +7,7 @@ const CartItemList = () => {
   const { cart } = useAppSelector((state) => state.cartState);
 
   return (
-    <div className="space-y-8">
+    <div>
       {cart.map((item) => {
         return <SingleCartItem key={item.cartID} item={item} />;
       })}

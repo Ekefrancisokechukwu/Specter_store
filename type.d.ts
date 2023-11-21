@@ -30,3 +30,8 @@ type CartProduct = {
   company: string;
   quantity: number;
 };
+
+type ApiErrorResponse = {
+  message: string;
+  error: { message: string };
+};

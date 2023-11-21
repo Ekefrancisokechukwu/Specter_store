@@ -34,7 +34,7 @@ const PopModal = ({ params: { productId } }: Params) => {
   const cartProduct: CartProduct = {
     cartID: data?.id!,
     title: productInfo?.title!,
-    price: productInfo?.price!,
+    price: productInfo?.price ?? 0,
     image: productInfo?.image!,
     company: productInfo?.company!,
     quantity,

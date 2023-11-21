@@ -7,33 +7,32 @@ type CartState = {
   shipping: 500;
   tax: number;
   orderTotal: number;
-  isInCart: boolean;
 };
 
 const defaultState: CartState = {
   cart: [],
   numItemsInCart: 0,
   cartTotal: 0,
-  isInCart: false,
   shipping: 500,
   tax: 0,
   orderTotal: 0,
 };
 
+const loadCartFromLocalStorage = (): CartState => {
+  const storedCart = localStorage.getItem("cartInfo");
+  return storedCart ? JSON.parse(storedCart) || defaultState : defaultState;
+};
+
 const CartSlice = createSlice({
   name: "cart",
-  initialState: defaultState,
+  initialState: loadCartFromLocalStorage(),
+
   reducers: {
     addItem: (state, { payload }: PayloadAction<CartProduct>) => {
-      const product = state.cart.find((prod) => prod.cartID === payload.cartID);
-      state.isInCart = state.cart.includes(product!);
-
-      if (product) {
-        product.quantity += payload.quantity;
-      } else {
-        state.cart.unshift(payload);
-      }
+      state.cart.unshift(payload);
       state.numItemsInCart += payload.quantity;
+      state.cartTotal += payload.price * payload.quantity;
+      CartSlice.caseReducers.calculateTotal(state);
     },
 
     removeItem: (state, action: PayloadAction<number>) => {
@@ -41,10 +40,30 @@ const CartSlice = createSlice({
       const product = state.cart.find((item) => item.cartID === cartID);
       state.cart = state.cart.filter((item) => item.cartID !== cartID);
       state.numItemsInCart -= product?.quantity!;
+
+      state.cartTotal -= product?.price! * product?.quantity!;
+      CartSlice.caseReducers.calculateTotal(state);
+    },
+
+    editItem: (
+      state,
+      action: PayloadAction<{ cartID: number; quantity: number }>
+    ) => {
+      const { cartID, quantity } = action.payload;
+      const product = state.cart.find((prod) => prod.cartID === cartID);
+      state.numItemsInCart += quantity - product?.quantity!;
+      state.cartTotal += product?.price! * (quantity - product?.quantity!);
+      product!.quantity = quantity;
+      CartSlice.caseReducers.calculateTotal(state);
+    },
+    calculateTotal: (state) => {
+      state.tax = 0.1 * state.cartTotal;
+      state.orderTotal = state.cartTotal + state.shipping + state.tax;
+      localStorage.setItem("cartInfo", JSON.stringify(state));
     },
   },
 });
 
-export const { addItem, removeItem } = CartSlice.actions;
+export const { addItem, removeItem, editItem } = CartSlice.actions;
 
 export default CartSlice.reducer;

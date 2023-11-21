@@ -56,7 +56,7 @@ const Header = () => {
               </SheetContent>
             </Sheet>
             <Link href={"/"} className="ml-4 lg:ml-0">
-              <h1 className="text-xl font-bold">SPECTER STORE</h1>
+              <h1 className="sm:text-xl text-base font-bold">SPECTER STORE</h1>
             </Link>
           </div>
 
@@ -84,7 +84,11 @@ const Header = () => {
               <Link href={"/cart"}>
                 <ShoppingCart className="h-6 w-6" />
                 <span className="bg-primary left-1/2 -translate-x-[40%] top-0  grid place-items-center text-xs absolute text-primary-foreground w-4 h-4 rounded-full">
-                  {amount || 0}
+                  {amount >= 5 ? (
+                    <span className="text-[.5rem]">5+</span>
+                  ) : (
+                    amount || 0
+                  )}
                 </span>
                 <span className="sr-only">Shopping Cart</span>
               </Link>
@@ -94,7 +98,7 @@ const Header = () => {
               variant="ghost"
               size="icon"
               aria-label="Toggle Theme"
-              className="mr-6"
+              className="mr-6  max-[400px]:hidden "
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
               <Sun className="h-6 w-6 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />

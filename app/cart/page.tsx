@@ -16,7 +16,7 @@ const Cart = () => {
       <Container>
         <div className="grid place-items-center h-[80vh] w-full">
           <div className="">
-            <h1 className="text-2xl"> Nothing in your cart yet</h1>
+            <h1 className="text-2xl"> Empty cart </h1>
           </div>
         </div>
       </Container>
@@ -32,11 +32,11 @@ const Cart = () => {
           <Link href={"/products"}>Products</Link>
         </nav>
 
-        <main className="mt-16 grid gap-x-20 lg:grid-cols-[1fr,auto] grid-cols-1 gap-y-9">
+        <main className="sm:mt-16 mt-5 grid gap-x-20 lg:grid-cols-[1fr,auto] grid-cols-1 gap-y-9">
           <div className="">
             <CartItemList />
           </div>
-          <div className="w-[20rem]">
+          <div className="w-[20rem]  max-[400px]:w-full">
             <CartTotals />
           </div>
         </main>

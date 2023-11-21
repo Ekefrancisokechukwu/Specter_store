@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
 import { AppProvider } from "./provider/Providers";
 import { Toaster } from "@/components/ui/toaster";
 import {
@@ -37,7 +36,6 @@ export default async function RootLayout({
       <body className={inter.className}>
         <AppProvider>
           <HydrationBoundary state={dehydrate(queryClient)}>
-            <Header />
             {children}
             {modal}
             <Toaster />

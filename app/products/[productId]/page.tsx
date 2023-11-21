@@ -4,6 +4,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
+import Product from "./Product";
 
 type Params = {
   params: { productId: string };
@@ -21,8 +22,7 @@ const page = async ({ params: { productId } }: Params) => {
   const response = await customFetch(`/products/${productId}`);
   const data = response.data.data;
 
-  const { image, title, price, description, company, category } =
-    data.attributes;
+  const { image, title, price, description, company } = data.attributes;
 
   return (
     <Container>
@@ -53,6 +53,8 @@ const page = async ({ params: { productId } }: Params) => {
             <p className="mt-4 text-gray-800 dark:text-white leading-8">
               {description}
             </p>
+
+            <Product data={data} />
           </div>
         </div>
       </div>
