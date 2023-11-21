@@ -1,6 +1,5 @@
 import Container from "@/components/ui/Container";
 import { customFetch, formatPrice } from "@/lib/utils";
-import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
@@ -9,14 +8,6 @@ import Product from "./Product";
 type Params = {
   params: { productId: string };
 };
-
-export async function generateMetadata({
-  params: { productId },
-}: Params): Promise<Metadata> {
-  return {
-    title: "...",
-  };
-}
 
 const page = async ({ params: { productId } }: Params) => {
   const response = await customFetch(`/products/${productId}`);

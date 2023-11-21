@@ -40,7 +40,9 @@ const PopModal = ({ params: { productId } }: Params) => {
     quantity,
   };
 
-  const cartItem = cart.find((prod) => prod.cartID === cartProduct.cartID);
+  const cartItem = cart.find(
+    (prod: CartProduct) => prod.cartID === cartProduct.cartID
+  );
   const isInCart = cart.includes(cartItem!);
 
   const addTocart = () => {
