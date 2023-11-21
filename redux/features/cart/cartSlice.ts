@@ -23,13 +23,9 @@ const defaultState: CartState = {
 //   return storedCart ? JSON.parse(storedCart) || defaultState : defaultState;
 // };
 
-const getCartFromLocalStorage = () => {
-  return JSON.parse(localStorage.getItem("cart")!) || defaultState;
-};
-
 const CartSlice = createSlice({
   name: "cart",
-  initialState: getCartFromLocalStorage(),
+  initialState: defaultState,
 
   reducers: {
     addItem: (state, { payload }: PayloadAction<CartProduct>) => {
@@ -41,12 +37,8 @@ const CartSlice = createSlice({
 
     removeItem: (state, action: PayloadAction<number>) => {
       const cartID = action.payload;
-      const product = state.cart.find(
-        (item: CartProduct) => item.cartID === cartID
-      );
-      state.cart = state.cart.filter(
-        (item: CartProduct) => item.cartID !== cartID
-      );
+      const product = state.cart.find((item) => item.cartID === cartID);
+      state.cart = state.cart.filter((item) => item.cartID !== cartID);
       state.numItemsInCart -= product?.quantity!;
 
       state.cartTotal -= product?.price! * product?.quantity!;
@@ -58,9 +50,7 @@ const CartSlice = createSlice({
       action: PayloadAction<{ cartID: number; quantity: number }>
     ) => {
       const { cartID, quantity } = action.payload;
-      const product = state.cart.find(
-        (prod: CartProduct) => prod.cartID === cartID
-      );
+      const product = state.cart.find((prod) => prod.cartID === cartID);
       state.numItemsInCart += quantity - product?.quantity!;
       state.cartTotal += product?.price! * (quantity - product?.quantity!);
       product!.quantity = quantity;
@@ -69,7 +59,7 @@ const CartSlice = createSlice({
     calculateTotal: (state) => {
       state.tax = 0.1 * state.cartTotal;
       state.orderTotal = state.cartTotal + state.shipping + state.tax;
-      localStorage.setItem("cartInfo", JSON.stringify(state));
+      localStorage.setItem("reduxState", JSON.stringify(state));
     },
   },
 });

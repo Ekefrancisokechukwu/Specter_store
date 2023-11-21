@@ -5,17 +5,17 @@ import cartReducer from "./features/cart/cartSlice";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 
-const rootReducer = combineReducers({
-  cart: cartReducer,
-});
+// const rootReducer = combineReducers({
+//   cart: cartReducer,
+// });
 
-const persistConfig = {
-  key: "root",
-  storage,
-  whitelist: ["cart"],
-};
+// const persistConfig = {
+//   key: "root",
+//   storage,
+//   whitelist: ["cart"],
+// };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
   reducer: {
@@ -28,4 +28,4 @@ export const useAppSelector: TypedUseSelectorHook<
   ReturnType<typeof store.getState>
 > = useSelector;
 
-// export const persistor = persistStore(store);
+export const persistor = persistStore(store);
